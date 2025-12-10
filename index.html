@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio του Βαγγέλη Θανόπουλου, φοιτητή Πληροφορικής στο Πανεπιστήμιο Πειραιώς. Projects, Skills & Επικοινωνία.">
+    
+    <meta property="og:title" content="Βαγγέλης Θανόπουλος - Portfolio">
+    <meta property="og:description" content="Φοιτητής Πληροφορικής στο Πανεπιστήμιο Πειραιώς. Δείτε τα Projects και το Βιογραφικό μου.">
+    <meta property="og:image" content="profile.jpg"> 
+    <meta property="og:url" content="https://vthanopoulos.github.io"> 
+    <meta property="og:type" content="website">
+
+    <title>Βαγγέλης Θανόπουλος - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. Variables & Dark Mode Setup --- */
+        :root {
+            /* Light Mode (Default) */
+            --primary-color: #1e293b; 
+            --nav-bg-color: #050505; 
+            --accent-color: #3b82f6; 
+            --text-color: #334155;
+            --light-bg: #f1f5f9;
+            --white: #ffffff;
+            --dark-bg: #0f172a;
+            --nav-height: 70px; 
+            --nav-link-color: #e2e8f0;
+            --card-border-color: #60a5fa; 
+            
+            /* Dynamic Gradients & Shadows */
+            --card-gradient: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+            --header-gradient: linear-gradient(135deg, #1e293b, #0f172a);
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+
+        /* --- Dark Mode Overrides --- */
+        [data-theme="dark"] {
+            --primary-color: #f8fafc;
+            --nav-bg-color: #000000; 
+            --accent-color: #60a5fa;
+            --text-color: #cbd5e1;
+            --light-bg: #0f172a;
+            --white: #1e293b;
+            --dark-bg: #020617;
+            --nav-link-color: #e2e8f0;
+            --card-border-color: #3b82f6;
+            
+            --card-gradient: linear-gradient(135deg, #1e293b 0%, #111827 100%);
+            --header-gradient: linear-gradient(135deg, #0f172a, #020617);
+            --shadow-color: rgba(0,0,0,0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif; 
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            scroll-behavior: smooth;
+            padding-top: var(--nav-height); 
+            overflow-x: hidden; 
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        a { text-decoration: none; color: inherit; transition: color 0.3s; }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1100px; 
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--nav-bg-color); 
+            color: var(--nav-link-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
+            z-index: 1000;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            height: var(--nav-height); 
+        }
+
+        .nav-links ul {
+            display: flex;
+            gap: 45px; 
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
+            transition: color 0.3s ease-in-out;
+            color: var(--nav-link-color);
+            font-size: 1.05rem;
+        }
+        
+        .nav-links a:hover { color: #fff; }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; 
+            left: 0;
+            width: 0;
+            height: 3px; 
+            background: var(--accent-color);
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- Dark Mode Button --- */
+        .theme-toggle {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            z-index: 1100;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* --- Header / Hero Section --- */
+        header {
+            background: var(--header-gradient);
+            color: #ffffff; /* Always white in header */
+            padding: 5rem 0 4rem 0; 
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 50px; 
+            text-align: left;
+        }
+
+        .profile-pic-container { flex-shrink: 0; }
+
+        .profile-pic {
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--accent-color);
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            background-color: #fff; 
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        header .subtitle {
+            font-size: 1.4rem;
+            color: #93c5fd; 
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        header .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px 30px;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        header .contact-info div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #e2e8f0;
+        }
+
+        header .contact-info a { color: #cbd5e1; }
+        header .contact-info a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        header .cta-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 12px 30px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        header .cta-button:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* --- Sections General --- */
+        section { 
+            padding: 4rem 0; 
+            scroll-margin-top: var(--nav-height); 
+        }
+
+        h2 {
+            font-size: 2.2rem; 
+            color: var(--primary-color);
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        /* --- SLIDER CSS --- */
+        .slider-wrapper {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden; 
+            padding: 20px 0;
+            touch-action: pan-y; 
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.3s ease-out;
+            width: 100%;
+            cursor: grab; 
+        }
+        
+        .slider-track.grabbing {
+            cursor: grabbing;
+            transition: none;
+        }
+
+        .slider-slide {
+            min-width: 100%;
+            flex: 0 0 100%; 
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        /* Controls */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--white);
+            color: var(--text-color);
+            border: 1px solid var(--card-border-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            transition: all 0.3s;
+            z-index: 20; 
+            touch-action: manipulation;
+        }
+
+        .slider-btn:hover { background: var(--accent-color); color: white; border-color: var(--accent-color); }
+        .prev-btn { left: 0; } 
+        .next-btn { right: 0; }
+
+        /* --- Education Content Styling --- */
+        .edu-card-content {
+            background: var(--card-gradient);
+            border: 2px solid var(--card-border-color);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border-left: 6px solid var(--accent-color); 
+            box-shadow: 0 8px 20px var(--shadow-color);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--text-color);
+        }
+
+        .degree-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(128,128,128,0.2);
+            padding-bottom: 15px;
+            gap: 10px;
+        }
+
+        .degree-info h3 { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 5px; line-height: 1.3; }
+        .degree-info .uni-name { font-size: 1rem; color: var(--text-color); opacity: 0.8; font-weight: 500; }
+        .degree-date { background: rgba(59, 130, 246, 0.15); color: var(--accent-color); padding: 6px 14px; border-radius: 50px; font-weight: 600; font-size: 0.85rem; white-space: nowrap; }
+
+        .thesis-highlight { margin-top: 1.5rem; display: flex; gap: 15px; align-items: flex-start; }
+        .thesis-icon { background: var(--primary-color); color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.9rem; }
+        [data-theme="dark"] .thesis-icon { background: var(--accent-color); }
+
+        .thesis-content strong { display: block; color: var(--primary-color); font-size: 1rem; }
+        .thesis-content em { font-size: 0.85rem; color: var(--text-color); opacity: 0.7; display: block; margin-bottom: 5px; }
+        .thesis-content p { color: var(--text-color); opacity: 0.9; line-height: 1.5; font-size: 0.9rem; margin-top: 5px; }
+
+        /* Secondary Education (Slide 2 content) */
+        .secondary-edu-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .sec-card { 
+            background: var(--card-gradient);
+            border: 2px solid var(--card-border-color);
+            padding: 2rem; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 20px var(--shadow-color);
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+            border-left: 4px solid #cbd5e1; 
+            transition: transform 0.3s ease, border-left-color 0.3s ease;
+            color: var(--text-color);
+        }
+        
+        .sec-card:hover {
+             transform: translateX(5px);
+             border-left-color: var(--accent-color);
+        }
+
+        .sec-icon { font-size: 2rem; color: var(--accent-color); opacity: 0.8; }
+        .sec-text h4 { font-size: 1.2rem; color: var(--primary-color); margin-bottom: 4px; }
+        .sec-text p { font-size: 0.95rem; color: var(--text-color); margin: 0; opacity: 0.8; }
+
+        /* --- Experience Section --- */
+        .exp-container {
+            position: relative;
+            padding-left: 20px; 
+        }
+
+        .exp-container::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #cbd5e1;
+            border-radius: 3px;
+        }
+        [data-theme="dark"] .exp-container::before { background-color: #334155; }
+
+        .exp-card {
+            position: relative;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-left: 20px; 
+            border: 2px solid var(--card-border-color);
+            color: var(--text-color);
+        }
+
+        .exp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+            border-color: var(--accent-color);
+        }
+
+        .exp-card::before {
+            content: '';
+            position: absolute;
+            left: -32px; 
+            top: 25px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-color);
+            border: 4px solid var(--light-bg); 
+            border-radius: 50%;
+        }
+
+        .exp-card::after {
+            content: '';
+            position: absolute;
+            left: -10px; 
+            top: 28px;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid var(--white);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+            gap: 10px;
+        }
+
+        .exp-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.35rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .exp-title i { margin-right: 10px; color: var(--accent-color); font-size: 1.1rem; }
+        .exp-date { font-size: 0.85rem; background: rgba(0,0,0,0.05); color: var(--text-color); padding: 5px 12px; border-radius: 6px; font-weight: 600; }
+        [data-theme="dark"] .exp-date { background: rgba(255,255,255,0.1); }
+
+        .exp-company { display: block; font-size: 1rem; color: var(--accent-color); font-weight: 500; margin-bottom: 1rem; padding-left: 32px; }
+        .exp-list { list-style: none; padding-left: 32px; color: var(--text-color); opacity: 0.9; }
+        .exp-list li { position: relative; margin-bottom: 8px; padding-left: 15px; }
+        .exp-list li::before { content: '•'; position: absolute; left: 0; color: var(--accent-color); font-weight: bold; }
+
+        /* --- Skills Slider Specifics --- */
+        .skill-card {
+            background: var(--card-gradient);
+            border: 2px solid var(--card-border-color);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            border-top: 5px solid var(--accent-color);
+            width: 100%;
+            text-align: center;
+            min-height: 480px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .skill-card h4 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .skill-category-title {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(128,128,128,0.2);
+            padding-bottom: 5px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .skill-list-centered {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .soft-skills-grid {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .skill-pill {
+            background: var(--white);
+            border: 1px solid var(--card-border-color);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+
+        .soft-skills-grid .skill-pill {
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+        }
+
+        .skill-pill i { color: var(--accent-color); }
+        
+        .skill-pill:hover {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+        .skill-pill:hover i { color: white; }
+
+
+        /* --- Contact Section --- */
+        .contact-wrapper {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+        }
+
+        .contact-info-panel {
+            background: var(--header-gradient);
+            color: var(--white);
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .contact-info-panel h3, .contact-info-panel span { color: #fff; }
+
+        .contact-info-panel h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+        .contact-info-panel p { color: #93c5fd; margin-bottom: 2rem; line-height: 1.6; }
+
+        .c-info-item { display: flex; align-items: center; margin-bottom: 1.5rem; font-size: 1rem; }
+        .c-info-item i { margin-right: 15px; color: var(--accent-color); font-size: 1.2rem; }
+
+        .contact-form-panel { padding: 3rem; background: var(--white); }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--card-border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03); 
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background-color: var(--white);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); 
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+        }
+
+        .submit-btn:hover { background-color: #2563eb; transform: translateY(-2px); }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--dark-bg);
+            color: #cbd5e1;
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: 4rem;
+        }
+
+        footer a { color: var(--accent-color); transition: color 0.3s; }
+        footer a:hover { color: #93c5fd; }
+
+
+        /* --- MOBILE OPTIMIZATIONS --- */
+        @media (max-width: 768px) {
+            
+            .container {
+                padding: 0 15px; 
+            }
+
+            /* 1. Navbar */
+            .navbar .container { 
+                padding: 10px 20px;
+                justify-content: space-between; /* Space out toggle and links if present */
+            }
+            .nav-links { display: none; /* Hide standard menu on mobile for simplicity */ }
+            
+            /* On mobile, move toggle to the right */
+            .theme-toggle {
+                position: static; 
+                transform: none;
+                margin-left: auto;
+            }
+
+            /* 2. Header & Centering */
+            header { padding: 7rem 0 3rem 0; text-align: center; }
+            .hero-content {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center; 
+            }
+
+            .hero-text {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center; 
+            }
+
+            .profile-pic { width: 140px; height: 140px; border-width: 3px; }
+            header h1 { font-size: 2rem; }
+            header .contact-info { justify-content: center; gap: 10px; }
+            
+            header .cta-button { margin-top: 2rem; }
+
+            /* 3. Sections */
+            section { padding: 2.5rem 0; }
+            h2 {
+                font-size: 1.8rem; margin-bottom: 2rem; text-align: center;
+                border-left: none; border-bottom: 3px solid var(--accent-color);
+                padding-left: 0; padding-bottom: 10px; display: inline-block; width: 100%;
+            }
+
+            /* 4. Cards Slider Fix */
+            .skill-card, .edu-card-content {
+                min-height: 320px !important; 
+                padding: 1.5rem;
+            }
+            .sec-card { padding: 1.5rem; }
+            .exp-card { padding: 1.5rem; }
+            
+            /* 5. Sliders Buttons */
+            .slider-btn {
+                width: 40px; height: 40px; font-size: 1rem;
+                background: var(--white);
+                opacity: 0.9;
+            }
+            .prev-btn { left: -10px; }
+            .next-btn { right: -10px; }
+
+            /* 6. Soft Skills Grid */
+            .soft-skills-grid { grid-template-columns: 1fr; gap: 10px; }
+            
+            /* 7. Footer */
+            footer { padding: 2rem 0; }
+            
+            /* 8. Contact Form */
+            .contact-wrapper { grid-template-columns: 1fr; } 
+            .contact-info-panel { padding: 2rem; text-align: center; }
+            .c-info-item { justify-content: center; }
+            .contact-form-panel { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-links">
+                <ul>
+                    <li><a href="#education">Εκπαίδευση</a></li>
+                    <li><a href="#experience">Εμπειρία</a></li>
+                    <li><a href="#skills">Δεξιότητες</a></li>
+                    <li><a href="#contact">Επικοινωνία</a></li>
+                </ul>
+            </div>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Εναλλαγή Dark Mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <div class="hero-content">
+                <div class="profile-pic-container">
+                    <img src="profile.jpg" alt="Φωτογραφία Προφίλ Βαγγέλης Θανόπουλος" class="profile-pic">
+                </div>
+                
+                <div class="hero-text">
+                    <h1>Βαγγέλης Θανόπουλος</h1>
+                    <div class="subtitle">Φοιτητής Πληροφορικής | Πανεπιστήμιο Πειραιώς</div>
+                    
+                    <div class="contact-info">
+                        <div><i class="fas fa-map-marker-alt"></i> Αθήνα, Ελλάδα</div>
+                        <div><i class="fas fa-phone"></i> <a href="tel:+306951368701">+30 6951368701</a></div>
+                        <div><i class="fas fa-envelope"></i> <a href="mailto:vthanop03@gmail.com">vthanop03@gmail.com</a></div>
+                        <div>
+                            <i class="fab fa-linkedin"></i> 
+                            <a href="https://www.linkedin.com/in/evangelos-thanopoulos-492858325/" target="_blank">LinkedIn</a>
+                        </div>
+                    </div>
+        
+                    <a href="#contact" class="cta-button">Επικοινωνία</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <section id="education">
+            <h2>Εκπαίδευση</h2>
+            
+            <div class="slider-wrapper edu-wrapper">
+                <button class="slider-btn prev-btn edu-prev" aria-label="Προηγούμενο Slide"><i class="fas fa-chevron-left"></i></button>
+                
+                <div class="slider-track edu-track">
+                    
+                    <div class="slider-slide">
+                        <div class="edu-card-content">
+                            <div class="degree-header">
+                                <div class="degree-info">
+                                    <h3>Πτυχίο Πληροφορικής (B.Sc.)</h3>
+                                    <div class="uni-name"><i class="fas fa-university"></i> Πανεπιστήμιο Πειραιώς - Τμήμα Ψηφιακών Συστημάτων</div>
+                                </div>
+                                <div class="degree-date">Σεπτ 2021 – Παρόν</div>
+                            </div>
+
+                            <p style="font-size: 1rem; margin-bottom: 10px;"><strong>Μέσος Όρος:</strong> 7.0/10</p>
+
+                            <div class="thesis-highlight">
+                                <div class="thesis-icon"><i class="fas fa-book-open"></i></div>
+                                <div class="thesis-content">
+                                    <strong>Πτυχιακή: "Comparative Analysis of PMBOK 6 vs PMBOK 7"</strong>
+                                    <em>Επιβλέπουσα: Δρ. Ελίνα Λασκαρίνα-Μάκρη</em>
+                                    <p>
+                                        Ανάλυση των βασικών διαφορών μεταξύ των προτύπων διαχείρισης έργων, εστιάζοντας στη μετάβαση από διαδικασίες σε αρχές αξίας.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slider-slide">
+                        <div class="secondary-edu-group">
+                            <div class="sec-card">
+                                <div class="sec-icon"><i class="fas fa-graduation-cap"></i></div>
+                                <div class="sec-text">
+                                    <h4>ECPE – Proficiency</h4>
+                                    <p>Επίπεδο C2 (Michigan) <br> <span style="font-size: 0.85rem; opacity: 0.8;">2026 (Αναμενόμενο)</span></p>
+                                </div>
+                            </div>
+                            
+                            <div class="sec-card">
+                                <div class="sec-icon"><i class="fas fa-school"></i></div>
+                                <div class="sec-text">
+                                    <h4>Απολυτήριο Λυκείου</h4>
+                                    <p>1ο Λύκειο Ηλιούπολης <br> <span style="font-size: 0.85rem; opacity: 0.8;">Βαθμός: 18.1/20</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="slider-btn next-btn edu-next" aria-label="Επόμενο Slide"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Επαγγελματική Εμπειρία</h2>
+            
+            <div class="exp-container">
+                <div class="exp-card">
+                    <div class="exp-header">
+                        <div class="exp-title"><i class="fas fa-chalkboard-teacher"></i> Private Tutor – Πληροφορική</div>
+                        <div class="exp-date">2023 – Παρόν</div>
+                    </div>
+                    <span class="exp-company">Ιδιαίτερα Μαθήματα</span>
+                    <ul class="exp-list">
+                        <li>Διδασκαλία Αλγορίθμων & Δομών Δεδομένων (Πανελλαδικές), με συνδυασμό δια ζώσης και εξ αποστάσεως εκπαίδευσης.</li>
+                        <li>Δημιουργία εξατομικευμένου εκπαιδευτικού υλικού και διαγωνισμάτων για την εμβάθυνση στη λογική του προγραμματισμού.</li>
+                        <li>Καθοδήγηση μαθητών που οδήγησε σε βελτίωση βαθμολογιών και κατανόηση σύνθετων εννοιών.</li>
+                    </ul>
+                </div>
+
+                <div class="exp-card">
+                    <div class="exp-header">
+                        <div class="exp-title"><i class="fas fa-user-tie"></i> Administrative Assistant</div>
+                        <div class="exp-date">2021 – Παρόν</div>
+                    </div>
+                    <span class="exp-company">Πρότυπο Φροντιστήριο</span>
+                    <ul class="exp-list">
+                        <li>Διαχείριση βάσης δεδομένων επιχείρησης, διασφαλίζοντας την ακρίβεια και ασφάλεια δεδομένων (Data Integrity).</li>
+                        <li>Ψηφιοποίηση αρχείων και βελτιστοποίηση της ροής εργασιών του γραφείου.</li>
+                        <li>Χρήση εργαλείων MS Office (Excel) για την παρακολούθηση προγραμμάτων και οικονομικών στοιχείων.</li>
+                        <li>Αποτελεσματική επικοινωνία και συντονισμός μεταξύ γονέων, μαθητών και διδακτικού προσωπικού.</li>
+                    </ul>
+                </div>
+
+                <div class="exp-card">
+                    <div class="exp-header">
+                        <div class="exp-title"><i class="fas fa-gem"></i> Sales Assistant</div>
+                        <div class="exp-date">2022 – 2024</div>
+                    </div>
+                    <span class="exp-company">Κατάστημα Κοσμημάτων</span>
+                    <ul class="exp-list">
+                        <li>Ανάπτυξη ισχυρών επικοινωνιακών δεξιοτήτων μέσω καθημερινής αλληλεπίδρασης με πελάτες.</li>
+                        <li>Διαχείριση παραπόνων και επίλυση προβλημάτων υπό πίεση (Crisis Management).</li>
+                        <li>Υπευθυνότητα στη διαχείριση ταμείου και αποθεμάτων (Inventory Management).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Δεξιότητες & Εργαλεία</h2>
+            
+            <div class="slider-wrapper skill-wrapper">
+                <button class="slider-btn prev-btn skill-prev" aria-label="Προηγούμενο Slide"><i class="fas fa-chevron-left"></i></button>
+                
+                <div class="slider-track skill-track">
+                    
+                    <div class="slider-slide">
+                        <div class="skill-card">
+                            <h4><i class="fas fa-code"></i> Development</h4>
+                            
+                            <span class="skill-category-title">Backend</span>
+                            <ul class="skill-list-centered">
+                                <li class="skill-pill"><i class="fab fa-python"></i> Python</li>
+                                <li class="skill-pill"><i class="fab fa-java"></i> Java</li>
+                                <li class="skill-pill"><i class="fas fa-terminal"></i> C</li>
+                                <li class="skill-pill"><i class="fas fa-database"></i> SQL</li>
+                            </ul>
+
+                            <span class="skill-category-title">Frontend</span>
+                            <ul class="skill-list-centered">
+                                <li class="skill-pill"><i class="fab fa-html5"></i> HTML5</li>
+                                <li class="skill-pill"><i class="fab fa-css3-alt"></i> CSS3</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="slider-slide">
+                        <div class="skill-card">
+                            <h4><i class="fas fa-toolbox"></i> Tools</h4>
+                            
+                            <span class="skill-category-title">Software</span>
+                            <ul class="skill-list-centered">
+                                <li class="skill-pill"><i class="fas fa-database"></i> MySQL</li>
+                                <li class="skill-pill"><i class="fas fa-chart-bar"></i> SPSS</li>
+                                <li class="skill-pill"><i class="fab fa-wordpress"></i> WordPress</li>
+                                <li class="skill-pill"><i class="fab fa-microsoft"></i> MS Office</li>
+                            </ul>
+
+                            <span class="skill-category-title">Project Management</span>
+                            <ul class="skill-list-centered">
+                                <li class="skill-pill"><i class="fas fa-project-diagram"></i> WBS Diagrams</li>
+                                <li class="skill-pill"><i class="fas fa-stream"></i> Gantt Charts</li>
+                                <li class="skill-pill"><i class="fas fa-book"></i> PMBOK 6</li>
+                                <li class="skill-pill"><i class="fas fa-book-open"></i> PMBOK 7</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="slider-slide">
+                        <div class="skill-card">
+                            <h4><i class="fas fa-handshake"></i> Soft Skills</h4>
+                            
+                            <ul class="soft-skills-grid">
+                                <li class="skill-pill"><i class="fas fa-brain"></i> Κριτική Σκέψη</li>
+                                <li class="skill-pill"><i class="fas fa-sync-alt"></i> Προσαρμοστικότητα</li>
+                                <li class="skill-pill"><i class="fas fa-puzzle-piece"></i> Επίλυση Προβλημάτων</li>
+                                <li class="skill-pill"><i class="fas fa-users"></i> Ομαδικότητα</li>
+                                <li class="skill-pill"><i class="fas fa-clock"></i> Διαχείριση Χρόνου</li>
+                                <li class="skill-pill"><i class="fas fa-gauge-high"></i> Αποδοτικότητα υπό πίεση</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="slider-btn next-btn skill-next" aria-label="Επόμενο Slide"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Επικοινωνία</h2>
+            
+            <div class="contact-wrapper">
+                
+                <div class="contact-info-panel">
+                    <h3>Ας μιλήσουμε!</h3>
+                    <p>Ενδιαφέρομαι για νέες ευκαιρίες και συνεργασίες.</p>
+                    
+                    <div class="c-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Αθήνα, Ελλάδα</span>
+                    </div>
+                    <div class="c-info-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+30 6951368701</span>
+                    </div>
+                    <div class="c-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>vthanop03@gmail.com</span>
+                    </div>
+                </div>
+
+                <div class="contact-form-panel">
+                    <form action="https://formspree.io/f/xjknekpg" method="POST">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Ονοματεπώνυμο</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Το όνομά σας" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="Το email σας" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">Μήνυμα</label>
+                            <textarea id="message" name="message" rows="5" class="form-input" placeholder="Πώς μπορώ να βοηθήσω;" required style="resize: vertical;"></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Αποστολή Μηνύματος</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Βαγγέλης Θανόπουλος.</p>
+            <div style="margin-top: 15px; font-size: 1.5rem;">
+                <a href="https://www.linkedin.com/in/evangelos-thanopoulos-492858325/" target="_blank" title="LinkedIn" style="margin: 0 12px;"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:vthanop03@gmail.com" title="Email" style="margin: 0 12px;"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- THEME TOGGLE LOGIC ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeIcon = themeToggleBtn.querySelector('i');
+            const htmlElement = document.documentElement;
+
+            // Check localStorage or System Preference
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                htmlElement.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = htmlElement.getAttribute('data-theme');
+                
+                if (currentTheme === 'dark') {
+                    // Switch to Light
+                    htmlElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    // Switch to Dark
+                    htmlElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            });
+
+            // --- REWORKED SLIDER FUNCTIONALITY ---
+            function initSlider(wrapperSelector, trackSelector, prevBtnSelector, nextBtnSelector) {
+                const wrapper = document.querySelector(wrapperSelector);
+                const track = document.querySelector(trackSelector);
+                const prevBtn = document.querySelector(prevBtnSelector);
+                const nextBtn = document.querySelector(nextBtnSelector);
+                
+                if (!wrapper || !track) return;
+
+                const slides = Array.from(track.children);
+                let currentIndex = 0;
+                
+                // Variables for Touch/Drag
+                let startPos = 0;
+                let currentTranslate = 0;
+                let prevTranslate = 0;
+                let isDragging = false;
+                let animationID;
+
+                // 1. Core Slide Function
+                function updateSlidePosition() {
+                    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    // Reset translation variables after a successful slide switch
+                    prevTranslate = -currentIndex * wrapper.offsetWidth;
+                    currentTranslate = prevTranslate;
+                }
+
+                function nextSlide() {
+                    if (currentIndex < slides.length - 1) {
+                        currentIndex++;
+                    } else {
+                        currentIndex = 0; // Loop back to start
+                    }
+                    updateSlidePosition();
+                }
+
+                function prevSlide() {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                    } else {
+                        currentIndex = slides.length - 1; // Loop to end
+                    }
+                    updateSlidePosition();
+                }
+
+                // Button Listeners
+                if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+                if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+                // --- TOUCH & DRAG LOGIC (REWORKED) ---
+                
+                function touchStart(index) {
+                    return function(event) {
+                        isDragging = true;
+                        startPos = getPositionX(event);
+                        animationID = requestAnimationFrame(animation);
+                        track.classList.add('grabbing');
+                    }
+                }
+
+                function touchMove(event) {
+                    if (isDragging) {
+                        const currentPosition = getPositionX(event);
+                        const currentMove = currentPosition - startPos;
+                    }
+                }
+
+                function touchEnd() {
+                    isDragging = false;
+                    cancelAnimationFrame(animationID);
+                    track.classList.remove('grabbing');
+
+                    const movedBy = currentTranslate - prevTranslate;
+
+                    if (movedBy < -70) {
+                        nextSlide();
+                    } else if (movedBy > 70) {
+                        prevSlide();
+                    } else {
+                        updateSlidePosition(); 
+                    }
+                }
+
+                function getPositionX(event) {
+                    return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+                }
+
+                function animation() {
+                    if (isDragging) {
+                        requestAnimationFrame(animation);
+                    }
+                }
+
+                // Simplified Swipe Detection (More robust for mobile)
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                wrapper.addEventListener('touchstart', e => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, {passive: true});
+
+                wrapper.addEventListener('touchend', e => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleGesture();
+                }, {passive: true});
+
+                function handleGesture() {
+                    const diff = touchStartX - touchEndX;
+                    if (Math.abs(diff) > 50) { // Threshold 50px
+                        if (diff > 0) {
+                            nextSlide(); // Swiped Left
+                        } else {
+                            prevSlide(); // Swiped Right
+                        }
+                    }
+                }
+            }
+
+            // Initialize functionality for both sliders
+            initSlider('.edu-wrapper', '.edu-track', '.edu-prev', '.edu-next');
+            initSlider('.skill-wrapper', '.skill-track', '.skill-prev', '.skill-next');
+        });
+    </script>
+</body>
+</html>
