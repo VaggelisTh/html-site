@@ -642,18 +642,39 @@
                 padding: 0 15px; 
             }
 
-            /* 1. Navbar */
+            /* --- 1. Navbar FIX (Εμφάνιση μενού στο κινητό) --- */
+            .navbar {
+                height: auto; /* Επιτρέπει στο ύψος να μεγαλώσει για να χωρέσει τα links */
+            }
+            
             .navbar .container { 
                 padding: 10px 20px;
-                justify-content: space-between; /* Space out toggle and links if present */
+                flex-direction: column; /* Τα βάζουμε το ένα κάτω από το άλλο */
+                height: auto;
             }
-            .nav-links { display: none; /* Hide standard menu on mobile for simplicity */ }
+
+            /* Εμφανίζουμε τα links ξανά, αλλά προσαρμοσμένα */
+            .nav-links { 
+                display: block; 
+                width: 100%;
+                margin-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .nav-links ul {
+                justify-content: center; /* Κεντράρισμα */
+                flex-wrap: wrap; /* Να πέφτουν από κάτω αν δεν χωράνε */
+                gap: 15px; /* Μικρότερο κενό ανάμεσα στα links */
+                font-size: 0.95rem;
+            }
             
-            /* On mobile, move toggle to the right */
+            /* Το κουμπί Dark Mode μένει πάνω δεξιά */
             .theme-toggle {
-                position: static; 
+                position: absolute; 
+                right: 20px;
+                top: 15px; 
                 transform: none;
-                margin-left: auto;
+                margin-left: 0;
             }
 
             /* 2. Header & Centering */
@@ -1002,19 +1023,24 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // --- THEME TOGGLE LOGIC ---
+            // --- THEME TOGGLE LOGIC (FIXED: Default Light) ---
             const themeToggleBtn = document.getElementById('theme-toggle');
             const themeIcon = themeToggleBtn.querySelector('i');
             const htmlElement = document.documentElement;
 
-            // Check localStorage or System Preference
+            // Check localStorage ONLY. Ignore system preference for default.
             const savedTheme = localStorage.getItem('theme');
-            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            
+            // Only apply dark mode if explicitly saved as 'dark'
+            if (savedTheme === 'dark') {
                 htmlElement.setAttribute('data-theme', 'dark');
                 themeIcon.classList.remove('fa-moon');
                 themeIcon.classList.add('fa-sun');
+            } else {
+                // Ensure Light Mode is active (default)
+                htmlElement.removeAttribute('data-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
             }
 
             themeToggleBtn.addEventListener('click', () => {
@@ -1035,7 +1061,7 @@
                 }
             });
 
-            // --- REWORKED SLIDER FUNCTIONALITY ---
+            // --- SLIDER FUNCTIONALITY (No changes needed here) ---
             function initSlider(wrapperSelector, trackSelector, prevBtnSelector, nextBtnSelector) {
                 const wrapper = document.querySelector(wrapperSelector);
                 const track = document.querySelector(trackSelector);
@@ -1084,7 +1110,7 @@
                 if (nextBtn) nextBtn.addEventListener('click', nextSlide);
                 if (prevBtn) prevBtn.addEventListener('click', prevSlide);
 
-                // --- TOUCH & DRAG LOGIC (REWORKED) ---
+                // --- TOUCH & DRAG LOGIC ---
                 
                 function touchStart(index) {
                     return function(event) {
@@ -1128,7 +1154,7 @@
                     }
                 }
 
-                // Simplified Swipe Detection (More robust for mobile)
+                // Simplified Swipe Detection
                 let touchStartX = 0;
                 let touchEndX = 0;
 
